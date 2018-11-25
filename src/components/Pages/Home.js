@@ -30,7 +30,8 @@ class Home extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    // const { data } = this.props;
+    const data = [{"username":"loading"}];
     return (
       <div className={styles.Root}>
         <Grid
@@ -40,7 +41,6 @@ class Home extends Component {
           justify="space-evenly"
           alignItems="stretch"
         >
-          <Paper style={styles.Paper}>
             {data.map((user, key) => {
               return (
                 <Grid key={key} item>
@@ -48,7 +48,6 @@ class Home extends Component {
                 </Grid>
               );
             })}
-          </Paper>
         </Grid>
       </div>
     );

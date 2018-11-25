@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { Header, Footer } from "./Layouts";
+import { Route } from 'react-router-dom';
 import { LocaleProvider } from "antd/lib"; // for js
-import Home from "./Home/Home";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
 import enUS from "antd/lib/locale-provider/en_US";
 
 export function authHeader() {
@@ -43,7 +45,8 @@ class App extends Component {
         <LocaleProvider locale={enUS}>
           <Header />
         </LocaleProvider>
-        <Home data={data} />
+        <Route path="/" exact component={Home} />
+        <Route path="/login" exact component={Login} />
         <Footer />
       </Fragment>
     );

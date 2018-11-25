@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import MenuButton from "./MenuButton";
+import { Link } from "react-router-dom";
 import { Complete } from "./";
 
 const styles = {
@@ -35,7 +36,8 @@ class Header extends Component {
 
   render() {
     const { classes } = this.props;
-    const showMenu = false;
+    const showLogin = true;
+    const LoginLink = props => <Link to="/login" {...props} />;
     return (
       <div className={classes.root}>
         <AppBar
@@ -53,7 +55,7 @@ class Header extends Component {
             <Typography variant="h5" color="inherit" className={classes.grow}>
               Trade
             </Typography>
-            {showMenu ? <Button color="inherit">Login</Button> : <MenuButton />}
+            {showLogin ? <Button color="inherit" component={LoginLink}>Login</Button> : <MenuButton />}
           </Toolbar>
           <div
             style={{
