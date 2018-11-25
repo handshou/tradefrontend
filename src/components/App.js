@@ -45,8 +45,10 @@ class App extends Component {
         <LocaleProvider locale={enUS}>
           <Header />
         </LocaleProvider>
-        <Route path="/" exact component={Home} />
-        <Route path="/login" exact component={Login} />
+        <div className="ui container">
+          <Route path="/" exact component={Home} />
+          <Route path="/login" exact component={Login} />
+        </div>
         <Footer />
       </Fragment>
     );

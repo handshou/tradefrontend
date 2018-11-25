@@ -6,7 +6,8 @@ const styles = {
   Root: {
     flexGrow: 1,
     display: "flex",
-    overflow: "scroll"
+    overflow: "scroll",
+    background: "white"
   },
   Paper: {
     padding: 20,
@@ -31,7 +32,7 @@ class Home extends Component {
 
   render() {
     // const { data } = this.props;
-    const data = [{"username":"loading"}];
+    const data = [{ username: "loading" }];
     return (
       <div className={styles.Root}>
         <Grid
@@ -41,13 +42,13 @@ class Home extends Component {
           justify="space-evenly"
           alignItems="stretch"
         >
-            {data.map((user, key) => {
-              return (
-                <Grid key={key} item>
-                  <Item key={key} styles={styles} name={user.username} />
-                </Grid>
-              );
-            })}
+          {data.map((user, key) => {
+            return (
+              <Grid key={key} item>
+                <Item key={key} styles={styles} name={user.username} />
+              </Grid>
+            );
+          })}
         </Grid>
       </div>
     );

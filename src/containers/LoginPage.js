@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import LoginForm from "../forms/LoginForm";
+import { Typograhpy } from "@material-ui/core";
 
 class LoginPage extends Component {
-    submit = data => {
-        console.log(data);
-    };
+  submit = data => {
+    console.log(data);
+  };
 
-    render() {
-        return (
-            <div>
-                <h1>Login page</h1>
+  render() {
+    return (
+      <div>
+        <Typography variant="h1">Login page</Typography>
 
-                <LoginFOrm submit={this.submit} />
-            </div>
-        )
-    }
+        <LoginForm submit={this.submit} />
+      </div>
+    );
+  }
 }
 
 export default LoginPage;
