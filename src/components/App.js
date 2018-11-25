@@ -1,10 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { Header, Footer } from "./Layouts";
-import { Route } from 'react-router-dom';
+import { Route } from "react-router-dom";
 import { LocaleProvider } from "antd/lib"; // for js
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
+import Shop from "./Pages/Shop";
 import enUS from "antd/lib/locale-provider/en_US";
+import UserRoute from "./Routes/UserRoute";
+import GuestRoute from "./Routes/GuestRoute";
 
 export function authHeader() {
   // return authorization header with jwt token
@@ -22,7 +25,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      data: [{'username':'loading'}]
+      data: [{ username: "loading" }]
     };
   }
 
@@ -39,6 +42,7 @@ class App extends Component {
   }
 
   render() {
+    const { location } = this.props;
     const { data } = this.state;
     return (
       <Fragment>
@@ -46,8 +50,14 @@ class App extends Component {
           <Header />
         </LocaleProvider>
         <div className="ui container">
-          <Route path="/" exact component={Home} />
-          <Route path="/login" exact component={Login} />
+          <Route location={location} path="/" exact component={Home} />
+          <GuestRoute
+            location={location}
+            path="/login"
+            exact
+            component={Login}
+          />
+          <UserRoute location={location} path="/shop" exact component={Shop} />
         </div>
         <Footer />
       </Fragment>
