@@ -51,7 +51,7 @@ class Header extends Component {
         >
           <Toolbar>
             <Typography variant="h5" color="inherit" className={classes.grow}>
-              Trade Bucket
+              Trade
             </Typography>
             {showMenu ? <Button color="inherit">Login</Button> : <MenuButton />}
           </Toolbar>
