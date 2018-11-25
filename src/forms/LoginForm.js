@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button } from "semantic-ui-react";
-import Validator from "validator";
+import { Message, Form, Button } from "semantic-ui-react";
 import InlineError from "./InlineError";
 
 export default class LoginForm extends Component {
@@ -26,7 +25,12 @@ export default class LoginForm extends Component {
     const errors = this.validate(this.state.data);
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
-      this.props.submit(this.state.data);
+      this.setState({ loading: true });
+      this.props
+        .submit(this.state.data)
+        .catch(err =>
+          this.setState({ errors: err.response.data.errors, loading: false })
+        );
     }
   };
 
@@ -38,11 +42,32 @@ export default class LoginForm extends Component {
   };
 
   render() {
-    const { data, errors } = this.state;
+    const { data, errors, loading } = this.state;
     return (
-      <Form onSubmit={this.onSubmit}>
+      <Form
+        onSubmit={this.onSubmit}
+        style={{
+          paddingTop: "3vh",
+          display: "block",
+          align: "center",
+          position: "absolute",
+          width: "300px",
+          height: "auto",
+          margin: "10",
+          top: "50%",
+          left: "50%",
+          marginRight: "-50%",
+          transform: "translate(-50%, -50%)"
+        }}
+        loading={loading}
+      >
+        {errors.global && (
+          <Message negative>
+            <Message.Header>Something went wrong</Message.Header>
+            <p>{errors.global}</p>
+          </Message>
+        )}
         <Form.Field error={!!errors.username}>
-          <label htmlFor="username">Username</label>
           <input
             type="text"
             id="username"
@@ -54,12 +79,11 @@ export default class LoginForm extends Component {
           {errors.username && <InlineError text={errors.username} />}
         </Form.Field>
         <Form.Field error={!!errors.password}>
-          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
             name="password"
-            placeholder="Make it secure"
+            placeholder="Password"
             value={data.password}
             onChange={this.onChange}
           />

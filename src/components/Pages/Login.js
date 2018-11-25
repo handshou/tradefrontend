@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Typography } from "@material-ui/core";
 import LoginForm from "../../forms/LoginForm";
-import { withStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { login } from "../../actions/auth";
 
 const styles = {
   login: {
@@ -16,25 +16,22 @@ const styles = {
 };
 
 class Login extends Component {
-  submit = data => {
-    console.log(data);
-  };
+  constructor(props) {
+    super(props);
+  }
+
+  submit = data =>
+    this.props.login(data).then(() => this.props.history.push("/"));
   render() {
-    const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <Typography
-          style={styles.spacer}
-          variant="h5"
-          color="inherit"
-          className={classes.grow}
-        >
-          Login Page
-        </Typography>
+      <div>
         <LoginForm submit={this.submit} />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(Login);
+export default connect(
+  null,
+  { login }
+)(Login);
