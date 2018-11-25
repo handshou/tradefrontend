@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import MenuButton from "./MenuButton";
 import { Link } from "react-router-dom";
 import { Complete } from "./";
+import { connect } from "react-redux";
 
 const styles = {
   root: {
@@ -35,8 +36,7 @@ class Header extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const showLogin = true;
+    const { classes, isAuthenticated } = this.props;
     const LoginLink = props => <Link to="/login" {...props} />;
     return (
       <div className={classes.root}>
@@ -55,7 +55,13 @@ class Header extends Component {
             <Typography variant="h5" color="inherit" className={classes.grow}>
               Trade
             </Typography>
-            {showLogin ? <Button color="inherit" component={LoginLink}>Login</Button> : <MenuButton />}
+            {!isAuthenticated ? (
+              <Button color="inherit" component={LoginLink}>
+                Login
+              </Button>
+            ) : (
+              <MenuButton />
+            )}
           </Toolbar>
           <div
             style={{
@@ -72,4 +78,10 @@ class Header extends Component {
   }
 }
 
-export default withStyles(styles)(Header);
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: !!state.user.username
+  };
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Header));

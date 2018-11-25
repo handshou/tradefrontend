@@ -10,11 +10,17 @@ import rootReducer from "./rootReducer";
 import App from "./components/App";
 import "semantic-ui-css/semantic.min.css";
 import * as serviceWorker from "./serviceWorker";
+import { userLoggedIn } from "./actions/auth";
 
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
+
+if (localStorage.tradeApp) {
+  const user = { username: localStorage.tradeApp };
+  store.dispatch(userLoggedIn(user));
+}
 
 ReactDOM.render(
   <BrowserRouter>
