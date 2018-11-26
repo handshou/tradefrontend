@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-class UserRoute extends Component {
+class GuestRoute extends Component {
   render() {
     const { isActivated, component: Component, ...rest } = this.props;
     return (
       <Route
         {...rest}
         render={props =>
-          !isActivated ? <Component {...props} /> : <Redirect to="/shop" />
+          !isActivated ? <Component {...props} /> : <Redirect to="/login" />
         }
       />
     );
@@ -22,4 +22,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(UserRoute);
+export default connect(mapStateToProps)(GuestRoute);

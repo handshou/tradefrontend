@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Grid, Paper, withStyles } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { Item } from "../Layouts";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 const styles = {
   Root: {
@@ -37,9 +36,25 @@ class Home extends Component {
     const data = [{ username: "loading" }];
     const { isAuthenticated } = this.props;
     return (
-      <div className={styles.Root}>
-        {isAuthenticated ? (
-          <button>logout</button>
+      <div>
+        <Typography
+          variant="h4"
+          style={{
+            paddingTop: "3vh",
+            align: "center",
+            position: "absolute",
+            height: "auto",
+            margin: "10",
+            top: "50%",
+            left: "50%",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            overflow: "hidden"
+          }}
+        >
+          {isAuthenticated ? "Logged In" : "Not Logged In"}
+        </Typography>
+        {/* <button>logout</button>
         ) : (
           <Link to="/login">Login</Link>
         )}
@@ -57,7 +72,7 @@ class Home extends Component {
               </Grid>
             );
           })}
-        </Grid>
+        </Grid> */}
       </div>
     );
   }

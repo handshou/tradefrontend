@@ -1,8 +1,11 @@
 import React, { Component } from "react";
+import { Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { Message, Form, Button } from "semantic-ui-react";
-import InlineError from "./InlineError";
+import InlineError from "../components/Messages/InlineError";
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
 
@@ -16,12 +19,15 @@ export default class LoginForm extends Component {
     };
   }
 
-  onChange = e =>
+  onChange = e => {
     this.setState({
+      ...this.state,
       data: { ...this.state.data, [e.target.name]: e.target.value }
     });
+  };
 
-  onSubmit = () => {
+  onSubmit = e => {
+    e.preventDefault();
     const errors = this.validate(this.state.data);
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
@@ -43,54 +49,82 @@ export default class LoginForm extends Component {
 
   render() {
     const { data, errors, loading } = this.state;
+    const RegisterLink = props => <Link to="/register" {...props} />;
     return (
-      <Form
-        onSubmit={this.onSubmit}
-        style={{
-          paddingTop: "3vh",
-          display: "block",
-          align: "center",
-          position: "absolute",
-          width: "300px",
-          height: "auto",
-          margin: "10",
-          top: "50%",
-          left: "50%",
-          marginRight: "-50%",
-          transform: "translate(-50%, -50%)"
-        }}
-        loading={loading}
-      >
-        {errors.global && (
-          <Message negative>
-            <Message.Header>Something went wrong</Message.Header>
-            <p>{errors.global}</p>
-          </Message>
-        )}
-        <Form.Field error={!!errors.username}>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Username"
-            value={data.username}
-            onChange={this.onChange}
-          />
-          {errors.username && <InlineError text={errors.username} />}
-        </Form.Field>
-        <Form.Field error={!!errors.password}>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            value={data.password}
-            onChange={this.onChange}
-          />
-          {errors.password && <InlineError text={errors.password} />}
-        </Form.Field>
-        <Button primary>Login</Button>
-      </Form>
+      <div>
+        <Form
+          onSubmit={this.onSubmit}
+          style={{
+            paddingTop: "3vh",
+            display: "block",
+            align: "center",
+            position: "absolute",
+            width: "300px",
+            height: "auto",
+            margin: "10",
+            top: "50%",
+            left: "50%",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)"
+          }}
+          loading={loading}
+        >
+          <Typography variant="h3" style={{ paddingBottom: "5px" }}>
+            Login
+          </Typography>
+          {errors.global && (
+            <Message negative>
+              <Message.Header>Something went wrong</Message.Header>
+              <p>{errors.global}</p>
+            </Message>
+          )}
+          <Form.Field error={!!errors.username}>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Username"
+              value={data.username}
+              onChange={this.onChange}
+            />
+            {errors.username && <InlineError text={errors.username} />}
+          </Form.Field>
+          <Form.Field error={!!errors.password}>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              value={data.password}
+              onChange={this.onChange}
+            />
+            {errors.password && <InlineError text={errors.password} />}
+          </Form.Field>
+          <div className="ui buttons">
+            <Button
+              primary
+              className="ui left attached button"
+              onClick={this.onSubmit}
+            >
+              Login
+            </Button>
+            <Button
+              secondary
+              className="right attached ui button"
+              as={Link}
+              to="/register"
+              onClick={() => {}}
+            >
+              Register
+            </Button>
+          </div>
+        </Form>
+      </div>
     );
   }
 }
+
+export default connect(
+  null,
+  {}
+)(LoginForm);

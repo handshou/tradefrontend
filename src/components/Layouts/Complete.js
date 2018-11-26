@@ -46,6 +46,10 @@ export default class Complete extends Component {
     dataSource: []
   };
 
+  componentDidMount() {
+    this.searchBar.focus();
+  }
+
   handleSearch = value => {
     this.setState({
       dataSource: value ? searchResult(value) : []
@@ -55,29 +59,36 @@ export default class Complete extends Component {
   render() {
     const { dataSource } = this.state;
     return (
-      <div className="global-search-wrapper" style={{ width: 300 }}>
+      <div
+        className="global-search-wrapper"
+        style={{ paddingBottom: "3px", paddingTop: "6px", width: 290 }}
+      >
         <AutoComplete
           className="global-search"
           size="large"
-          style={{ width: "100%", marginTop: -20, paddingBottom: 5 }}
+          style={{ width: "100%", marginTop: -30, paddingBottom: 5 }}
           dataSource={dataSource.map(renderOption)}
           onSelect={onSelect}
           onSearch={this.handleSearch}
-          placeholder="input here"
+          placeholder="Search"
           optionLabelProp="text"
           locale={enUS}
         >
           <Input
             locale={enUS}
+            ref={Input => {
+              this.searchBar = Input;
+            }}
             suffix={
-              <Button
-                locale={enUS}
-                className="search-btn"
-                size="large"
-                type="primary"
-              >
-                <Icon type="search" />
-              </Button>
+              <Icon
+                type="search"
+                style={{
+                  color: "#6E6E6E",
+                  transition: "all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)",
+                  fontSize: "16px"
+                }}
+                className="certain-category-icon"
+              />
             }
           />
         </AutoComplete>

@@ -10,13 +10,18 @@ export class Shop extends Component {
 
   render() {
     const { isActivated } = this.props;
-    return <Fragment>{!isActivated && <DeactivatedMessage />}</Fragment>;
+    return (
+      <Fragment>
+        {!isActivated && <DeactivatedMessage />}
+        Hello there this is Shop
+      </Fragment>
+    );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    isActivated: !!state.user.isActivated
+    isActivated: !!state.user.username
   };
 };
 

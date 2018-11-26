@@ -12,11 +12,11 @@ export const userLoggedOut = () => ({
 
 export const login = credentials => dispatch =>
   api.user.login(credentials).then(user => {
-    localStorage.tradeApp = user.username;
+    localStorage.username = user.username;
     dispatch(userLoggedIn(user));
   });
 
-export const logout = credientials => dispatch => {
-  localStorage.removeItem("tradeApp");
+export const logout = () => dispatch => {
+  localStorage.removeItem("username");
   dispatch(userLoggedOut());
 };

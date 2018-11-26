@@ -17,8 +17,10 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-if (localStorage.tradeApp) {
-  const user = { username: localStorage.tradeApp };
+if (localStorage.username) {
+  const user = {
+    username: localStorage.username
+  };
   store.dispatch(userLoggedIn(user));
 }
 

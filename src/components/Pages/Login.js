@@ -2,18 +2,7 @@ import React, { Component } from "react";
 import LoginForm from "../../forms/LoginForm";
 import { connect } from "react-redux";
 import { login } from "../../actions/auth";
-
-const styles = {
-  login: {
-    paddingTop: "0"
-  },
-  root: {
-    flexGrow: 1
-  },
-  spacer: {
-    paddingTop: "20px"
-  }
-};
+import PropTypes from "prop-types";
 
 class Login extends Component {
   constructor(props) {
@@ -21,7 +10,7 @@ class Login extends Component {
   }
 
   submit = data =>
-    this.props.login(data).then(() => this.props.history.push("/"));
+    this.props.login(data).then(() => this.props.history.push("/shop"));
   render() {
     return (
       <div>
@@ -31,6 +20,14 @@ class Login extends Component {
   }
 }
 
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
+  login: PropTypes.func.isRequired
+};
+
+// we don't need anything, hence instead of first param mapStateToProps(), we pass null. second one is mapDispatchToProps()
 export default connect(
   null,
   { login }
