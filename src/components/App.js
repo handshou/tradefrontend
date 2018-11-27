@@ -12,10 +12,10 @@ import GuestRoute from "./Routes/GuestRoute";
 
 export function authHeader() {
   // return authorization header with jwt token
-  let user = JSON.parse(localStorage.getItem("user"));
+  let username = localStorage.getItem("username");
 
-  if (user && user.username) {
-    return { Authorization: user.username };
+  if (username) {
+    return { Authorization: username };
   } else {
     return { Authorization: "admin" };
   }

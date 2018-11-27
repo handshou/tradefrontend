@@ -19,6 +19,10 @@ class MenuButton extends Component {
     );
     const { handleLogout } = this.props;
 
+    const logout = () => {
+      handleLogout();
+    };
+
     return (
       <WithState>
         {({ anchorEl, updateAnchorEl }) => {
@@ -47,7 +51,7 @@ class MenuButton extends Component {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
+                <MenuItem onClick={() => logout()}>Logout</MenuItem>
               </Menu>
             </Fragment>
           );

@@ -40,11 +40,11 @@ class Header extends Component {
 
   // not working
   handleTitleClick = () => {
-    console.log("Title clicked!");
+    this.console.log("Title clicked!");
   };
 
   render() {
-    const { classes, isAuthenticated } = this.props;
+    const { classes, isLoggedIn } = this.props;
     const LoginLink = props => <Link to="/login" {...props} />;
     return (
       <div className={classes.root}>
@@ -75,7 +75,7 @@ class Header extends Component {
                 </div>
               </div>
             </Typography>
-            {!isAuthenticated ? (
+            {!isLoggedIn ? (
               <Button
                 style={styles.button}
                 variant="text"
@@ -101,7 +101,7 @@ class Header extends Component {
               alignItems: "center"
             }}
           >
-            {isAuthenticated ? <Complete style={{ width: "100%" }} /> : ""}
+            {isLoggedIn ? <Complete style={{ width: "100%" }} /> : ""}
           </div>
         </AppBar>
       </div>
@@ -111,7 +111,7 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   return {
-    isAuthenticated: !!state.user.username
+    isLoggedIn: !!state.user.username
   };
 }
 

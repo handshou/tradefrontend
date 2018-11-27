@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import { Typography } from "@material-ui/core";
+import { connect } from "react-redux";
 import { Form, Button } from "semantic-ui-react";
 import InlineError from "../components/Messages/InlineError";
 
-export default class RegisterForm extends Component {
+class RegisterForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       data: {
         username: "",
-        password: ""
+        password: "",
+        name: ""
       },
       loading: false,
-      errors: {}
+      regErrors: {}
     };
   }
 
@@ -26,27 +28,27 @@ export default class RegisterForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const errors = this.validate(this.state.data);
-    this.setState({ errors });
-    if (Object.keys(errors).length === 0) {
+    const regErrors = this.validate(this.state.data);
+    this.setState({ regErrors });
+    if (Object.keys(regErrors).length === 0) {
       this.setState({ loading: true });
-      this.props
-        .submit(this.state.data)
-        .catch(err =>
-          this.setState({ errors: err.response.data.errors, loading: false })
-        );
+      this.props.submit(this.state.data);
+      // .catch(err =>
+      //   this.setState({ errors: err.response.data.errors, loading: false })
+      // );
     }
   };
 
   validate = data => {
-    const errors = {};
-    if (!data.username) errors.username = "Can't be blank";
-    if (!data.password) errors.password = "Can't be blank";
-    return errors;
+    const regErrors = {};
+    if (!data.username) regErrors.username = "Can't be blank";
+    if (!data.password) regErrors.password = "Can't be blank";
+    if (!data.name) regErrors.name = "Can't be blank";
+    return regErrors;
   };
 
   render() {
-    const { data, errors, loading } = this.state;
+    const { data, regErrors, loading } = this.state;
     return (
       <Form
         style={{
@@ -68,8 +70,19 @@ export default class RegisterForm extends Component {
         <Typography variant="h3" style={{ paddingBottom: "3px" }}>
           Register
         </Typography>
-        {errors ? console.log(errors) : ""}
-        <Form.Field error={!!errors.username}>
+        <Form.Field error={!!regErrors.name}>
+          <label htmlFor="name">First Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Name"
+            value={data.name}
+            onChange={this.onChange}
+          />
+          {regErrors.name && <InlineError text={regErrors.name} />}
+        </Form.Field>
+        <Form.Field error={!!regErrors.username}>
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -79,9 +92,9 @@ export default class RegisterForm extends Component {
             value={data.username}
             onChange={this.onChange}
           />
-          {errors.username && <InlineError text={errors.username} />}
+          {regErrors.username && <InlineError text={regErrors.username} />}
         </Form.Field>
-        <Form.Field error={!!errors.password}>
+        <Form.Field error={!!regErrors.password}>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -91,10 +104,15 @@ export default class RegisterForm extends Component {
             value={data.password}
             onChange={this.onChange}
           />
-          {errors.password && <InlineError text={errors.password} />}
+          {regErrors.password && <InlineError text={regErrors.password} />}
         </Form.Field>
         <Button primary>Register</Button>
       </Form>
     );
   }
 }
+
+export default connect(
+  null,
+  {}
+)(RegisterForm);

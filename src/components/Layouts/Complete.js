@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Icon, Button, Input, AutoComplete } from "antd";
+import { Icon, Input, AutoComplete } from "antd";
 import "antd/dist/antd.css";
 import enUS from "antd/lib/locale-provider/en_US";
 

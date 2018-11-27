@@ -4,12 +4,12 @@ import { connect } from "react-redux";
 
 class UserRoute extends Component {
   render() {
-    const { isActivated, component: Component, ...rest } = this.props;
+    const { isLoggedIn, component: Component, ...rest } = this.props;
     return (
       <Route
         {...rest}
         render={props =>
-          isActivated ? <Component {...props} /> : <Redirect to="/" />
+          isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />
         }
       />
     );
@@ -18,7 +18,7 @@ class UserRoute extends Component {
 
 function mapStateToProps(state) {
   return {
-    isActivated: !!state.user.username
+    isLoggedIn: !!state.user.username
   };
 }
 

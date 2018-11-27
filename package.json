@@ -40,5 +40,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:8080"
+  "proxy": "http://172.23.196.240:8080"
 }
